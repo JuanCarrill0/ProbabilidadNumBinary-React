@@ -1,6 +1,11 @@
-import React, { useRef, useState} from "react";
+import React, { useEffect, useRef, useState} from "react";
+import LogoUd from "../Assets/LogoDistrital.png"
+import { TeoryComponent } from "../Components/teoryComponent";
+import { DevelopComponent } from "../Components/developComponent";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
-import "../StylesViews/principalView.css"
+import "../Styles/principalView.css"
 
 export const Principalview = () => {
     
@@ -9,6 +14,14 @@ export const Principalview = () => {
 
     const numMaxRef = useRef<HTMLInputElement>(null);
     const numDigitsRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        AOS.init({
+            duration: 1000,
+            easing: 'ease-in-out',
+            delay: 100,
+        });
+    }, []);
 
 
     // Función para generar un número binario aleatorio con la cantidad de dígitos especificada
@@ -78,18 +91,38 @@ export const Principalview = () => {
             setNumDigits(parseInt(numDigitsRef.current.value));
         }
     }
-
+      
     return (
-        <div className= "container">
-        <h1>Generador de números binarios</h1>
-          <form>
-            <label htmlFor="numMax">Digite el Maximo digito posible que puede existir: </label>
-            <input type="number" id="numMax" min="1" max="9" value={numMax} onChange={handleInputChange} ref={numMaxRef} />
-            <label htmlFor="numDigits">Número de dígitos:</label>
-            <input type="number" name="numDigits" min="1" max="100" value={numDigits} onChange={handleInputChange} ref={numDigitsRef}></input>
-            <button onClick={handleGenerateBtnClick} type="button" id="generateBtn">Generar número</button>
-          </form>
-          <div id="result"></div>
+        <div className="container" data-aos="fade-up">
+            <header>
+                <div className="imgUd">
+                    <img src={LogoUd} alt="" />
+                </div>
+                <div id="navHeader">
+                <ul className="flex-container">
+                    <li className="flex-item">Parametrizacion</li>
+                    <li className="flex-item">Teoria</li>
+                    <li className="flex-item">Desarrollo de procedimientos</li>
+                    <li className="flex-item">Bibliografia</li>
+                </ul>
+                </div>
+            </header>
+            <div className="titleBox">
+                <h1 className="title" data-aos="zoom-in">Generador de números binarios</h1>
+                <p className="text" data-aos="fade-left">Problema : Un número en sistema binario está compuesto sólo por dígitos 0 y 1. Si consideramos números binarios de n dígitos y es p la probabilidad de que cualquier dígito sea incorrecto (se transforme de 0 a 1 y de 1 a 0), independientemente unos de otros <br/>¿Cual es la probabilidad de que un número sea incorrecto?</p>
+            </div>
+            <div className="principalBox" data-aos="fade-up">
+                <div className="formBox" data-aos="fade-right">
+                <label htmlFor="numMax">Digite el Maximo digito posible que puede existir: </label>
+                <input type="number" id="numMax" min="1" max="9" value={numMax} onChange={handleInputChange} ref={numMaxRef} />
+                <label htmlFor="numDigits">Número de dígitos:</label>
+                <input type="number" name="numDigits" min="1" max="100" value={numDigits} onChange={handleInputChange} ref={numDigitsRef}></input>
+                <button onClick={handleGenerateBtnClick} type="button" id="generateBtn">Generar número</button>
+                </div>
+                <div id="result" data-aos="zoom-in"></div>
+            </div>
+            <TeoryComponent />
+            <DevelopComponent />
         </div>
     );
 }

@@ -1,0 +1,30 @@
+
+  .textForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+  }
+  
+  .asideForm-1,.asideForm-2{
+    margin: 0 auto;
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
+  }
+  
+  .text {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    margin: 0.5rem 0;
+  }
+ 
+  
+  
