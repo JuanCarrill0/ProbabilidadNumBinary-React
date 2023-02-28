@@ -1,0 +1,35 @@
+.contentDevelop{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.algorithm{
+    display: grid;
+    grid-template-rows: 1fr;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.subtitle{
+    text-align: center;
+}
+
+.image1{
+    width: 90%;
+}
+
+.image2{
+    margin-left: 25%;
+}
+
+.aside-left, .aside-right{
+    padding: 10px;
+}
+
+@media screen and (max-width: 767px){
+    .contentDevelop{
+        grid-template-columns: 1fr;
+    }
+}

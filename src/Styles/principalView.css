@@ -2,8 +2,127 @@
   max-width: 90%;
   margin: 0 auto;
   padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Estilos para tabletas y pantallas de escritorio */
+
+header{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.imgUd{
+  align-items: center;
+}
+.imgUd img{
+  width: 400px;
+}
+#navHeader {
+  padding: 20px;
+  text-align: center;
+}
+
+.titleBox{
+  position: relative;
+  top: -40px;
+}
+
+.flex-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.flex-item {
+  background-color: #4CAF50;
+  color: white;
+  padding: 5px;
+  margin: 10px;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.flex-item:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.title {
+  font-size: 44px;
+  text-align: center;
+}
+
+.subtitle{
+  text-align: center;
+}
+
+.text {
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+.principalBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.formBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 40px;
+}
+
+input {
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+label{
+  font-size: 20px;
+}
+
+#generateBtn {
+  background-color: #4caf50;
+  color: #fff;
+  font-size: 20px;
+  padding: 5px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#generateBtn:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+#result {
+  font-size: 20px;
+  text-align: center;
+}
+
+.info{
+  display: flex;
+  align-items: center;
+  gap: 10%;
+}
 
 /* Estilos para dispositivos móviles */
 @media screen and (max-width: 767px) {
@@ -33,122 +152,9 @@
   #generateBtn {
     margin-top: 10px;
   }
-}
 
-/* Estilos para tabletas y pantallas de escritorio */
-@media screen and (min-width: 768px) {
   header{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .imgUd{
-    align-items: center;
-  }
-  .imgUd img{
-    width: 450px;
-  }
-  #navHeader {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .titleBox{
-    position: relative;
-    top: -30px;
-  }
-
-  .flex-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: center;
-    align-items: center;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .flex-item {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    margin: 10px;
-    text-align: center;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .flex-item:hover {
-    cursor: pointer;
-    transform: scale(1.1);
-  }
-
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .title {
-    font-size: 44px;
-    text-align: center;
-  }
-
-  .subtitle{
-    text-align: center;
-  }
-
-  .text {
-    font-size: 20px;
-    margin-bottom: 40px;
-  }
-
-  .principalBox {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .formBox {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 40px;
-    padding: 25px;
-  }
-
-  input {
-    margin-bottom: 20px;
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 20px;
-  }
-
-  label{
-    font-size: 20px;
-  }
-
-  #generateBtn {
-    background-color: #4caf50;
-    color: #fff;
-    font-size: 20px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  #generateBtn:hover {
-    cursor: pointer;
-    transform: scale(1.1);
-  }
-
-  #result {
-    font-size: 20px;
-    text-align: center;
+    grid-template-columns: 1fr;
   }
 }
+

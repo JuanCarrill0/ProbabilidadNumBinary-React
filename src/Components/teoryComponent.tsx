@@ -8,8 +8,8 @@ import funcionAcumulada from "../Assets/FuncionDistribucionAcumulada.png"
 
 export const TeoryComponent = () =>{
     return(
-        <div className="teoryComponent">
-            <h2 className="title">Teoria</h2>
+        <div id="teoria" className="teoryComponent">
+            <h2 data-aos="fade-right" className="title">Teoria</h2>
             <h3 className="subtitle">Distribución Binonmial</h3>
             <div className="content-Teory">
                 <div className="textDesc">
@@ -22,15 +22,15 @@ export const TeoryComponent = () =>{
                 <div className="textForm">
                     <div className="asideForm-1">
                         <p className="text"> La función de probabilidad está dada por :</p>
-                        <img src={funcionProbabilidad} alt="" />
+                        <img data-aos="zoom-in" src={funcionProbabilidad} alt="" />
                     </div>
                     <div className="asideForm-2">
                         <p className="text">Donde : </p>
-                        <img src={combinacion} alt="" />
+                        <img data-aos="zoom-in" src={combinacion} alt="" />
                     </div>
                     <div className="asideForm-3">
-                        <p className="text"> La función de probabilidad de distrubución acumulada está dada por:</p>
-                        <img src={funcionAcumulada} alt="" />
+                        <p className="text"> La función de probabilidad de distribución acumulada está dada por:</p>
+                        <img data-aos="zoom-in" src={funcionAcumulada} alt="" />
                     </div>
                 </div>
             </div>

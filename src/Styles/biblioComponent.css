@@ -1,0 +1,24 @@
+.biblioComponent{
+    display: grid;
+    grid-template-columns: 20% 80%;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.links{
+    padding-left: 140px;
+}
+.title h2{
+    font-size: 44px;
+}
+
+@media screen and (max-width: 767px){
+    .biblioComponent{
+        grid-template-columns: 1fr;
+    }
+
+    .links{
+        padding-left: 0;
+    }
+}
