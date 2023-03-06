@@ -13,7 +13,9 @@
 
 header{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 35% 45% 20%;
+  align-items: center;
+  gap: 10px;
 }
 
 .imgUd{
@@ -22,6 +24,10 @@ header{
 .imgUd img{
   width: 400px;
 }
+
+.authors{
+  font-size: 14px;
+}
 #navHeader {
   padding: 20px;
   text-align: center;
@@ -29,7 +35,7 @@ header{
 
 .titleBox{
   position: relative;
-  top: -40px;
+  top: -25px;
 }
 
 .flex-container {
@@ -118,14 +124,9 @@ label{
   text-align: center;
 }
 
-.info{
-  display: flex;
-  align-items: center;
-  gap: 10%;
-}
-
 /* Estilos para dispositivos móviles */
 @media screen and (max-width: 767px) {
+
   .container {
     padding: 20px;
   }
@@ -135,14 +136,23 @@ label{
     text-align: center;
   }
 
+  .authors{
+    margin-bottom: 25px;
+  }
+  
   .text {
     font-size: 16px;
+  }
+
+  .principalBox{
+    flex-direction: column;
   }
 
   .formBox {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-right: 0;
   }
 
   input {

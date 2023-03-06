@@ -5,10 +5,15 @@ import { DevelopComponent } from "../Components/developComponent";
 import { BiblioComponent } from "../Components/biblioComponent";
 import { Link } from 'react-scroll';
 
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Pie } from 'react-chartjs-2';
+
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 import "../Styles/principalView.css"
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const Principalview = () => {
     
@@ -18,6 +23,20 @@ export const Principalview = () => {
     const numMaxRef = useRef<HTMLInputElement>(null);
     const numDigitsRef = useRef<HTMLInputElement>(null);
 
+    let probabilityRound:string = '0' ;
+
+
+    const [data, setData] = useState({
+        labels: ["Probabilidad de error", "Probabilidad de acierto"],
+        datasets: [
+          {
+            data: [parseInt(probabilityRound), 1 - parseInt(probabilityRound)],
+            backgroundColor: ["#FF6384", "#36A2EB"],
+            hoverBackgroundColor: ["#FF6384", "#36A2EB"],
+          },
+        ],
+      });
+      
     useEffect(() => {
         AOS.init({
             duration: 1000,
@@ -60,29 +79,37 @@ export const Principalview = () => {
 
     // Función para manejar el evento de clic en el botón "Generar número"
     const handleGenerateBtnClick = () =>{
-        const inputNumDigits = numDigitsRef.current?.value ?? ""
-        const inputNumMax = numMaxRef.current?.value ?? "";
 
-        const valueNumDigits = parseInt(inputNumDigits);
-        const valueNumMax = parseInt(inputNumMax);
+        const valueNumDigits = parseInt(numDigitsRef.current?.value ?? "");
+        const valueNumMax = parseInt(numMaxRef.current?.value ?? "");
     
         // Generar un número binario aleatorio con la cantidad de dígitos especificada
         const binaryNumber = generateBinaryNumber(valueNumDigits,valueNumMax);
         
         // Calcular la probabilidad de que aparezca un número incorrecto
         const probability = calculateProbability(valueNumDigits,valueNumMax);
-        const probabilityRound = probability.toFixed(8);
+        probabilityRound = probability.toFixed(8);
         
         // Mostrar el resultado en pantalla
         const resultDiv = document.getElementById("result");
         if (resultDiv) {
-        resultDiv.innerHTML =
-            '<p>Número binario generado: ' +
-            binaryNumber +
-            '</p><p>Probabilidad de que aparezca un número incorrecto: ' +
-            probabilityRound +
-            "</p>";
+            resultDiv.innerHTML =
+                '<p>Número binario generado: ' + binaryNumber +
+                '</p><p>Probabilidad de que aparezca un número incorrecto: ' +probabilityRound +"</p>";
         }
+
+        const newData = {
+            labels: ["Probabilidad de error", "Probabilidad de acierto"],
+            datasets: [
+              {
+                data: [parseInt(probabilityRound), 1 - parseInt(probabilityRound)],
+                backgroundColor: ["#FF6384", "#36A2EB"],
+                hoverBackgroundColor: ["#FF6384", "#36A2EB"],
+              },
+            ],
+          };
+
+        setData(newData);
     }
 
     const handleInputChange =() => {
@@ -94,7 +121,7 @@ export const Principalview = () => {
             setNumDigits(parseInt(numDigitsRef.current.value));
         }
     }
-      
+
     return (
         <div className="container" data-aos="fade-up">
             <header>
@@ -109,24 +136,29 @@ export const Principalview = () => {
                     <li  className="flex-item"><Link to="bibliografia" spy={true} smooth={true} duration={500} className="nav-link">Bibliografia</Link></li>
                 </ul>
                 </div>
+                <div className="authors">
+                    <p>Juan Esteban Carrillo Garcia (20212020147) <br /> Probabilidad 020-81 - Docente: Fernando Leon Parada </p>
+                </div>
             </header>
             <div className="titleBox">
                 <h1 className="title" data-aos="zoom-in">Generador de números binarios</h1>
-                <p className="text" >Problema : Un número en sistema binario está compuesto sólo por dígitos 0 y 1. Si consideramos números binarios de n dígitos y es p la probabilidad de que cualquier dígito sea incorrecto (se transforme de 0 a 1 y de 1 a 0), independientemente unos de otros <br/>¿Cual es la probabilidad de que un número sea incorrecto? <br></br></p>
-                <div className="info">
-                    <a href="https://drive.google.com/file/d/0B_2tTMG4oaixUlBQenZmeHB6bWM/view?resourcekey=0-AF5V_DIxP97koYUifA9Gbw" rel="noopener"> Ejercicio 3.13 Pagina 51 - "Probabilidad y aplicaciones estadisticas" Paul L. Meyer</a>
-                    <p>Juan Esteban Carrillo Garcia -20212020147 <br /> Probabilidad 020-81 - Docente: Fernando Leon Parada </p>
-                </div>
+                <p className="text" >Problema : Un número en sistema binario está compuesto sólo por dígitos 0 y 1. Si consideramos números binarios de n dígitos y es p la probabilidad de que cualquier dígito sea incorrecto (se transforme de 0 a 1 y de 1 a 0), independientemente unos de otros <br/>¿Cual es la probabilidad de que un número sea incorrecto? </p>
+                <a href="https://drive.google.com/file/d/0B_2tTMG4oaixUlBQenZmeHB6bWM/view?resourcekey=0-AF5V_DIxP97koYUifA9Gbw" rel="noreferrer"> Ejercicio 3.13 Pagina 51 - "Probabilidad y aplicaciones estadisticas" Paul L. Meyer</a>
             </div>
-            <div id="parametrizacion" className="principalBox">
+            <div className="principalBox">
                 <div className="formBox" data-aos="zoom-in">
-                <label htmlFor="numMax">Digite el Maximo digito posible que puede existir: </label>
-                <input type="number" id="numMax" min="1" max="9" value={numMax} onChange={handleInputChange} ref={numMaxRef} />
-                <label htmlFor="numDigits">Número de dígitos:</label>
-                <input type="number" name="numDigits" min="1" max="100" value={numDigits} onChange={handleInputChange} ref={numDigitsRef}></input>
-                <button onClick={handleGenerateBtnClick} type="button" id="generateBtn">Generar número</button>
+                    <label htmlFor="numMax">Digite el Maximo digito posible que puede existir: </label>
+                    <input type="number" id="numMax" min="1" max="9" value={numMax} onChange={handleInputChange} ref={numMaxRef} />
+                    <label htmlFor="numDigits">Número de dígitos:</label>
+                    <input type="number" name="numDigits" min="1" max="100" value={numDigits} onChange={handleInputChange} ref={numDigitsRef}></input>
+                    <button onClick={handleGenerateBtnClick} type="button" id="generateBtn">Generar número</button>
                 </div>
                 <div id="result"></div>
+                <div className="table">
+                    <Pie  
+                     data={data}
+                    />
+                </div>
             </div>
             <TeoryComponent />
             <DevelopComponent />

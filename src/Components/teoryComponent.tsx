@@ -10,7 +10,7 @@ export const TeoryComponent = () =>{
     return(
         <div id="teoria" className="teoryComponent">
             <h2 data-aos="fade-right" className="title">Teoria</h2>
-            <h3 className="subtitle">Distribución Binonmial</h3>
+            <h3 className="subtitle">Distribución Binomial</h3>
             <div className="content-Teory">
                 <div className="textDesc">
                 <p className="text">En teoría de la probabilidad y estadística, la distribución binomial o distribución binómica es una distribución de probabilidad discreta que cuenta el número de éxitos en una secuencia de 
