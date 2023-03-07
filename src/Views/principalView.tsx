@@ -30,7 +30,7 @@ export const Principalview = () => {
         labels: ["Probabilidad de error", "Probabilidad de acierto"],
         datasets: [
           {
-            data: [parseInt(probabilityRound), 1 - parseInt(probabilityRound)],
+            data: [1, 1],
             backgroundColor: ["#FF6384", "#36A2EB"],
             hoverBackgroundColor: ["#FF6384", "#36A2EB"],
           },
@@ -89,20 +89,12 @@ export const Principalview = () => {
         // Calcular la probabilidad de que aparezca un número incorrecto
         const probability = calculateProbability(valueNumDigits,valueNumMax);
         probabilityRound = probability.toFixed(8);
-        
-        // Mostrar el resultado en pantalla
-        const resultDiv = document.getElementById("result");
-        if (resultDiv) {
-            resultDiv.innerHTML =
-                '<p>Número binario generado: ' + binaryNumber +
-                '</p><p>Probabilidad de que aparezca un número incorrecto: ' +probabilityRound +"</p>";
-        }
 
         const newData = {
             labels: ["Probabilidad de error", "Probabilidad de acierto"],
             datasets: [
               {
-                data: [parseInt(probabilityRound), 1 - parseInt(probabilityRound)],
+                data: [parseFloat(probabilityRound) , 1 - parseFloat(probabilityRound) ],
                 backgroundColor: ["#FF6384", "#36A2EB"],
                 hoverBackgroundColor: ["#FF6384", "#36A2EB"],
               },
@@ -110,6 +102,14 @@ export const Principalview = () => {
           };
 
         setData(newData);
+        // Mostrar el resultado en pantalla
+        const resultDiv = document.getElementById("result");
+
+        if (resultDiv) {
+            resultDiv.innerHTML =
+                '<p>Número binario generado: ' + binaryNumber +
+                '</p><p>Probabilidad de que aparezca un número incorrecto: ' +probabilityRound +"</p>";
+        }
     }
 
     const handleInputChange =() => {
@@ -153,12 +153,12 @@ export const Principalview = () => {
                     <input type="number" name="numDigits" min="1" max="100" value={numDigits} onChange={handleInputChange} ref={numDigitsRef}></input>
                     <button onClick={handleGenerateBtnClick} type="button" id="generateBtn">Generar número</button>
                 </div>
-                <div id="result"></div>
-                <div className="table">
-                    <Pie  
-                     data={data}
+                <div className="table" id="table">
+                    <Pie 
+                        data={data}
                     />
                 </div>
+                <div id="result"></div>
             </div>
             <TeoryComponent />
             <DevelopComponent />
