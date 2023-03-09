@@ -141,10 +141,14 @@ label{
   }
 
   .authors{
-    margin-bottom: 25px;
+    margin-bottom: 20px;
   }
   
-  .text {
+  label, p{
+    font-size: 16px;
+  }
+
+  .text{
     font-size: 16px;
   }
 

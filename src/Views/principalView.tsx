@@ -122,6 +122,10 @@ export const Principalview = () => {
         }
     }
 
+    function handleKeyDown(_event: any) {
+        _event.preventDefault();
+      }
+
     return (
         <div className="container" data-aos="fade-up">
             <header>
@@ -148,9 +152,9 @@ export const Principalview = () => {
             <div className="principalBox">
                 <div className="formBox" data-aos="zoom-in">
                     <label htmlFor="numMax">Digite el Maximo digito posible que puede existir: </label>
-                    <input type="number" id="numMax" min="1" max="9" value={numMax} onChange={handleInputChange} ref={numMaxRef} />
+                    <input type="number" id="numMax" min="1" max="9" onKeyDown={handleKeyDown} value={numMax} onChange={handleInputChange} ref={numMaxRef} />
                     <label htmlFor="numDigits">Número de dígitos:</label>
-                    <input type="number" name="numDigits" min="1" max="100" value={numDigits} onChange={handleInputChange} ref={numDigitsRef}></input>
+                    <input type="number" name="numDigits" min="1" max="100" onKeyDown={handleKeyDown} value={numDigits} onChange={handleInputChange} ref={numDigitsRef}></input>
                     <button onClick={handleGenerateBtnClick} type="button" id="generateBtn">Generar número</button>
                 </div>
                 <div className="table" id="table">

@@ -21,4 +21,8 @@
     .links{
         padding-left: 0;
     }
+
+    h2{
+        font-size: 20px;
+    }
 }
