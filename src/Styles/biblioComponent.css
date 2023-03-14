@@ -1,20 +1,27 @@
 .biblioComponent{
-    display: grid;
-    grid-template-columns: 20% 80%;
+    display: flex;
+    gap: 20px;
 
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
+    width: 100%;
 }
 
 .links{
-    padding-left: 140px;
+    display: grid;
+    justify-content: center;
 }
 .title h2{
     font-size: 40px;
 }
 
+a{
+    padding: 8px 0px;
+}
+
 @media screen and (max-width: 767px){
     .biblioComponent{
+        display: grid;
         grid-template-columns: 1fr;
     }
 
@@ -22,7 +29,7 @@
         padding-left: 0;
     }
 
-    h2{
-        font-size: 20px;
+    .title h2{
+        font-size: 24px;
     }
 }

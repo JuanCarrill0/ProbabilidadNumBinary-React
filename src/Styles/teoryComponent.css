@@ -29,7 +29,7 @@
     margin: 0.5rem auto;
   }
 
-  .asideForm-1{
+  .asideForm-1,.asideForm-2,.asideForm-3{
     display: grid;
     justify-content: center;
   }

@@ -88,13 +88,13 @@ export const Principalview = () => {
         
         // Calcular la probabilidad de que aparezca un número incorrecto
         const probability = calculateProbability(valueNumDigits,valueNumMax);
-        probabilityRound = probability.toFixed(8);
+        probabilityRound = (probability*100).toFixed(8);
 
         const newData = {
             labels: ["Probabilidad de error", "Probabilidad de acierto"],
             datasets: [
               {
-                data: [parseFloat(probabilityRound) , 1 - parseFloat(probabilityRound) ],
+                data: [parseFloat(probability.toFixed(8)) , 1 - parseFloat(probability.toFixed(8)) ],
                 backgroundColor: ["#FF6384", "#36A2EB"],
                 hoverBackgroundColor: ["#FF6384", "#36A2EB"],
               },
@@ -108,7 +108,7 @@ export const Principalview = () => {
         if (resultDiv) {
             resultDiv.innerHTML =
                 '<p>Número binario generado: ' + binaryNumber +
-                '</p><p>Probabilidad de que aparezca un número incorrecto: ' +probabilityRound +"</p>";
+                '</p><p>Probabilidad de que aparezca un número incorrecto: ' +probabilityRound +" % </p>";
         }
     }
 
@@ -121,10 +121,6 @@ export const Principalview = () => {
             setNumDigits(parseInt(numDigitsRef.current.value));
         }
     }
-
-    function handleKeyDown(_event: any) {
-        _event.preventDefault();
-      }
 
     return (
         <div className="container" data-aos="fade-up">
@@ -152,9 +148,9 @@ export const Principalview = () => {
             <div className="principalBox">
                 <div className="formBox" data-aos="zoom-in">
                     <label htmlFor="numMax">Digite el Maximo digito posible que puede existir: </label>
-                    <input type="number" id="numMax" min="1" max="9" onKeyDown={handleKeyDown} value={numMax} onChange={handleInputChange} ref={numMaxRef} />
+                    <input type="number" id="numMax" min="1" max="9" value={numMax} onChange={handleInputChange}  ref={numMaxRef}  />
                     <label htmlFor="numDigits">Número de dígitos:</label>
-                    <input type="number" name="numDigits" min="1" max="100" onKeyDown={handleKeyDown} value={numDigits} onChange={handleInputChange} ref={numDigitsRef}></input>
+                    <input type="number" name="numDigits" min="1" max="100" value={numDigits} onChange={handleInputChange} ref={numDigitsRef}></input>
                     <button onClick={handleGenerateBtnClick} type="button" id="generateBtn">Generar número</button>
                 </div>
                 <div className="table" id="table">
