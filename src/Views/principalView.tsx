@@ -112,7 +112,13 @@ export const Principalview = () => {
         }
     }
 
-    const handleInputChange =() => {
+    const handleChange =(event: React.ChangeEvent<HTMLInputElement>) => {
+
+        const inputValue = event.target.value;
+        if (inputValue.length > 1) {
+        event.target.value = inputValue.slice(0, 1);
+        }
+
         if (numMaxRef.current ) {
             setNumMax(parseInt(numMaxRef.current.value));
         }
@@ -148,9 +154,9 @@ export const Principalview = () => {
             <div className="principalBox">
                 <div className="formBox" data-aos="zoom-in">
                     <label htmlFor="numMax">Digite el Maximo digito posible que puede existir: </label>
-                    <input type="number" id="numMax" min="1" max="9" value={numMax} onChange={handleInputChange}  ref={numMaxRef}  />
+                    <input type="number" id="numMax" min={1} max={9} value={numMax} onChange={(event) => handleChange(event)}  ref={numMaxRef}  />
                     <label htmlFor="numDigits">Número de dígitos:</label>
-                    <input type="number" name="numDigits" min="1" max="100" value={numDigits} onChange={handleInputChange} ref={numDigitsRef}></input>
+                    <input type="number" name="numDigits" min="1" max="100" value={numDigits} onChange={(event) => handleChange(event)} ref={numDigitsRef}></input>
                     <button onClick={handleGenerateBtnClick} type="button" id="generateBtn">Generar número</button>
                 </div>
                 <div className="table" id="table">
