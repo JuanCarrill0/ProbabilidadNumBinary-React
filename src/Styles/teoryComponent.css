@@ -1,12 +1,9 @@
   .teoryComponent{
     margin-bottom: 50px;
+    border-bottom: solid 10px #4caf50;
   }
 
-  .textForm {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    justify-content: center;
-    align-items: center;
+  .formula{
     margin: 0 auto;
   }
   

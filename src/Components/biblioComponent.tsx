@@ -11,7 +11,6 @@ export const BiblioComponent = () =>{
             <div className="links">
                 <a href="https://drive.google.com/file/d/0B_2tTMG4oaixUlBQenZmeHB6bWM/view?resourcekey=0-AF5V_DIxP97koYUifA9Gbw" rel="noopener"> "Probabilidad y aplicaciones estadisticas" Paul L. Meyer </a>
                 <a href="https://es.scribd.com/document/346818969/Solucionario-Probabilidad-Paul-l-Meyer" rel="noopener">Solucionario "Probabilidad y aplicaciones estadisticas" Paul L. Meyer </a>
-                <a href="https://es.wikipedia.org/wiki/Distribuci%C3%B3n_binomial"> Distribución Binomial</a>
             </div>
             <div className="title">
                 <h2 >PDF</h2>

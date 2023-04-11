@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState} from "react";
+import clsx from "clsx";
 import LogoUd from "../Assets/LogoDistrital.png"
 import { TeoryComponent } from "../Components/teoryComponent";
 import { DevelopComponent } from "../Components/developComponent";
@@ -15,16 +16,61 @@ import "../Styles/principalView.css"
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+type BinaryDigit = "0" | "1";
+
+type BinaryNumberProps = {
+    binaryNumber: BinaryDigit[];
+    isIncorrect: boolean;
+    incorrectIndexes?: number[];
+  };
+
+function generateRandomBinaryNumber(n: number): BinaryDigit[] {
+  const result: BinaryDigit[] = [];
+  for (let i = 0; i < n; i++) {
+    const digit = Math.random() < 0.5 ? "0" : "1";
+    result.push(digit);
+  }
+  return result;
+}
+
+function calculateProbabiility(binaryNumber: BinaryDigit[], p: number): number{
+    return 1-Math.pow((1-p),binaryNumber.length);
+}
+function countIncorrectDigits(binaryNumber: BinaryDigit[], p: number): number[] {
+  const incorrectIndexes: number[] = [];
+  for (let i = 0; i < binaryNumber.length; i++) {
+    if (Math.random() < p) {
+      incorrectIndexes.push(i);
+    }
+  }
+  return incorrectIndexes;
+}
+
+function BinaryNumber({ binaryNumber, incorrectIndexes }: BinaryNumberProps) {
+    return (
+      <div className="binary-numberBox">
+        {binaryNumber.map((digit, index) => (
+          <div
+            key={index}
+            className={`binary-number ${incorrectIndexes !== undefined && incorrectIndexes.includes(index) ? "incorrect" : ""}`}
+          >
+            {digit}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
 export const Principalview = () => {
     
     const [numMax, setNumMax] = useState<number>(1);
-    const [numDigits, setNumDigits] = useState<number>(1);
+    const [numProb, setNumProb] = useState<number>(1);
 
     const numMaxRef = useRef<HTMLInputElement>(null);
-    const numDigitsRef = useRef<HTMLInputElement>(null);
+    const numProbRef = useRef<HTMLInputElement>(null);
 
-    let probabilityRound:string = '0' ;
-
+    const [binaryNumber, setBinaryNumber] = useState<BinaryDigit[]>(generateRandomBinaryNumber(numMax));
+    const [incorrectIndexes, setIncorrectIndexes] = useState<number[]>([]);
 
     const [data, setData] = useState({
         labels: ["Probabilidad de error", "Probabilidad de acierto"],
@@ -45,50 +91,13 @@ export const Principalview = () => {
         });
     }, []);
 
+    const generateNewBinaryNumber = (p: number) => {
+        const newBinaryNumber = generateRandomBinaryNumber(numMax);
+        setBinaryNumber(newBinaryNumber);
+        const newIncorrectIndexes = countIncorrectDigits(newBinaryNumber, p);
+        setIncorrectIndexes(newIncorrectIndexes);
 
-    // Función para generar un número binario aleatorio con la cantidad de dígitos especificada
-    const generateBinaryNumber = (numDigits: number , numMax:number) => {
-        let binaryNumber = "";
-        for (let i = 0; i < numDigits; i++) {
-        // Generar un número aleatorio entre 0 y 2
-        let digit = Math.floor(Math.random() * (numMax+1));
-        binaryNumber += digit;
-        }
-        return binaryNumber;
-    }
-
-    // Función para calcular la probabilidad de que aparezca un número incorrecto
-    const calculateProbability = (numDigits: number , numMax:number) => {
-        // Probabilidad de que aparezca un número incorrecto en un dígito
-        let p = 0;
-    
-        if(numMax >= 2){
-        p = (numMax-1) / (numMax+1);
-        }
-    
-        let probability = 0;
-        for (let k = 1; k <= numDigits; k++) {
-            let binomialCoefficient = 1;
-            for (let i = 0; i < k; i++) {
-                binomialCoefficient *= (numDigits - i) / (i + 1);
-            }
-            probability += binomialCoefficient * Math.pow(p, k) * Math.pow(1 - p, numDigits - k);
-        }
-        return probability;
-    }
-
-    // Función para manejar el evento de clic en el botón "Generar número"
-    const handleGenerateBtnClick = () =>{
-
-        const valueNumDigits = parseInt(numDigitsRef.current?.value ?? "");
-        const valueNumMax = parseInt(numMaxRef.current?.value ?? "");
-    
-        // Generar un número binario aleatorio con la cantidad de dígitos especificada
-        const binaryNumber = generateBinaryNumber(valueNumDigits,valueNumMax);
-        
-        // Calcular la probabilidad de que aparezca un número incorrecto
-        const probability = calculateProbability(valueNumDigits,valueNumMax);
-        probabilityRound = (probability*100).toFixed(8);
+        let probability = calculateProbabiility(binaryNumber,p);
 
         const newData = {
             labels: ["Probabilidad de error", "Probabilidad de acierto"],
@@ -102,29 +111,16 @@ export const Principalview = () => {
           };
 
         setData(newData);
-        // Mostrar el resultado en pantalla
-        const resultDiv = document.getElementById("result");
+    };
 
-        if (resultDiv) {
-            resultDiv.innerHTML =
-                '<p>Número binario generado: ' + binaryNumber +
-                '</p><p>Probabilidad de que aparezca un número incorrecto: ' +probabilityRound +" % </p>";
-        }
-    }
-
-    const handleChange =(event: React.ChangeEvent<HTMLInputElement>) => {
-
-        const inputValue = event.target.value;
-        if (inputValue.length > 1) {
-        event.target.value = inputValue.slice(0, 1);
-        }
+    const handleChange =() => {
 
         if (numMaxRef.current ) {
             setNumMax(parseInt(numMaxRef.current.value));
         }
 
-        if(numDigitsRef.current){
-            setNumDigits(parseInt(numDigitsRef.current.value));
+        if(numProbRef.current){
+            setNumProb(parseInt(numProbRef.current.value));
         }
     }
 
@@ -153,18 +149,22 @@ export const Principalview = () => {
             </div>
             <div className="principalBox">
                 <div className="formBox" data-aos="zoom-in">
-                    <label htmlFor="numMax">Digite el Maximo digito posible que puede existir: </label>
-                    <input type="number" id="numMax" min={1} max={9} value={numMax} onChange={(event) => handleChange(event)}  ref={numMaxRef}  />
-                    <label htmlFor="numDigits">Número de dígitos:</label>
-                    <input type="number" name="numDigits" min="1" max="100" value={numDigits} onChange={(event) => handleChange(event)} ref={numDigitsRef}></input>
-                    <button onClick={handleGenerateBtnClick} type="button" id="generateBtn">Generar número</button>
+                    <label>
+                        Digite la cantidad de digitos del numero binario
+                        <input type="number" step="1" min="1" max="8" value={numMax} ref={numMaxRef} onChange={() => handleChange()}/>
+                    </label>
+                    <label>
+                        Digite la probabilidad en porcentaje % de que exista un numero incorrecto
+                        <input type="number" step="1" min="0" max="100" value={numProb} ref={numProbRef} onChange={() => handleChange()}/>
+                    </label>
+                    <button id="generateBtn" onClick={() => generateNewBinaryNumber(numProb/100)}>Generar Numero Binario</button>
                 </div>
                 <div className="table" id="table">
                     <Pie 
                         data={data}
                     />
                 </div>
-                <div id="result"></div>
+                <BinaryNumber binaryNumber={binaryNumber} isIncorrect={incorrectIndexes.length > 0} incorrectIndexes={incorrectIndexes} />
             </div>
             <TeoryComponent />
             <DevelopComponent />
